@@ -127,8 +127,8 @@ class LinkedList:
                     current = current.next
                     local_counter += 1
                 else:
-                    return None
-        return None
+                    return None, None
+        return None, None
 
     def find_all(self, value, comparer=None):
         local_counter = 0
