@@ -163,6 +163,8 @@ class LinkedList:
         result = [None] * self.counter
         local_counter = 0
         current = self.root
+        if self.counter < 1:
+            return []
         while 1:
             result[local_counter] = current.data
             if current.next:
@@ -170,7 +172,7 @@ class LinkedList:
                 local_counter += 1
             else:
                 return result
-        return -1
+        return []
 
     def serialize(self):
         # todo: serialize
