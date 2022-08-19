@@ -1,5 +1,5 @@
 import unittest
-from linkedlist import LinkedList
+from customcollections import LinkedList
 
 
 class TestLinkedList(unittest.TestCase):
