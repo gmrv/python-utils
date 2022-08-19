@@ -57,6 +57,9 @@ class HashTable:
         else:
             return False
 
-    def comparer(self, o1, o2):
-        result = o1["key"] == o2["key"]
-        return result
+    def show_fullness(self):
+        counter = 0
+        for i in range(0, len(self.storage) - 1):
+            if self.storage[i]:
+                counter += 1
+        return counter / len(self.storage)

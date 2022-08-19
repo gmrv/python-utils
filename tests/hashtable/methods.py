@@ -30,4 +30,8 @@ class TestHashTable(unittest.TestCase):
             # key = i
             print(i, key)
             ht.add(key, "data-data-data")
+
+        fullness = ht.show_fullness()
+        print(fullness)
+
         pass
