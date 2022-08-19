@@ -15,23 +15,28 @@ class HashTable:
             result = (result * 2 + 1) % index_size
         return result
 
-    def add(self, value):
+    def add(self, key, value):
         ll = customcollections.LinkedList()
-        index = self.get_hash(value)
+        index = self.get_hash(key)
         if self.storage[index]:
             ll = self.storage[index]
-            ll.append(value)
+            # todo: dict {"key": key, "value": value} to object
+            ll.append({"key": key, "value": value})
         else:
-            self.storage[index] = ll.append(value)
+            self.storage[index] = ll.append({"key": key, "value": value})
 
-    def has(self, value):
-        index = self.get_hash(value)
+    def has(self, key):
+        index = self.get_hash(key)
         if self.storage[index]:
             ll = self.storage[index]
-            data, ind = ll.find(value)
+            data, ind = ll.find({"key": key, "value": None}, comparer=self.comparer)
             if data:
                 return True
             else:
                 return False
         else:
             return False
+
+    def comparer(self, o1, o2):
+        result = o1["key"] == o2["key"]
+        return result
