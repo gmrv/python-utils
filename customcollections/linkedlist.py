@@ -117,7 +117,7 @@ class LinkedList:
             is_equal = self.comparer
 
         while 1:
-            if is_equal(current.data, value):
+            if is_equal(self, current.data, value):
                 return current.data, local_counter
             else:
                 if current.next:
