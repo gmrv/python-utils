@@ -1,7 +1,7 @@
 import random
 import string
 import unittest
-from customcollections import HashTable
+from customcollections import *
 
 
 class TestHashTable(unittest.TestCase):
@@ -9,9 +9,18 @@ class TestHashTable(unittest.TestCase):
     def test_add_and_has(self):
         ht = HashTable(init_size=10)
 
-        ht.add('Me value', "1data-data-data")
-        ht.add('Me value', "2data-data-data")
-        ht.add('Me value', "3data-data-data")
+        # Test for adding empty data
+        with self.assertRaises(HashTableExceptionKeyValueItemRequired):
+            ht.add()
+
+        # Test for adding data as HashTableItem object
+        ri = ht.add(item=HashTableItem('item-key', 'item-value'))
+        self.assertEqual(ri.key, 'item-key')
+
+        # Test for adding duplicate key
+        r1 = ht.add('Me value', "1data-data-data")
+        r2 = ht.add('Me value', "2data-data-data")
+        self.assertEqual(r2, None)
 
         ht.add('horse', "4data-data-data")
         ht.add(111, "5data-data-data")
