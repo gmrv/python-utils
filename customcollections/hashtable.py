@@ -4,11 +4,19 @@ import hashlib
 
 class HashTableItem:
     key = None
-    data = None
+    value = None
 
-    def __init__(self, key=key, data=data):
+    def __init__(self, key, value):
         self.key = key
-        self.data = data
+        self.value = value
+
+
+class HashTableExceptionKeyValueItemRequired(Exception):
+
+    message = 'Key, value or HashTableItem object required'
+
+    def __init__(self):
+        super().__init__(self.message)
 
 
 class HashTable:
@@ -44,22 +52,34 @@ class HashTable:
         result = int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % len(self.storage)
         return result
 
-    def add(self, key, value):
-        # todo: Prohibit adding identical keys
-        # todo: (self, key, value, object=None) Object adding implementation
+    def add(self, key=None, value=None, item: HashTableItem = None):
+
+        if not((key and value) or item):
+            raise HashTableExceptionKeyValueItemRequired()
+
+        if item:
+            key = item.key
+            value = item.value
+
+        if self.has(key):
+            return None
         ll = customcollections.LinkedList()
         index = self.get_hash(key)
         if self.storage[index]:
             ll = self.storage[index]
-            ll.append(HashTableItem(key=key, data=value))
+            o = HashTableItem(key=key, value=value)
+            ll.append(o)
+            return o
         else:
-            self.storage[index] = ll.append(HashTableItem(key=key, data=value))
+            o = HashTableItem(key=key, value=value)
+            self.storage[index] = ll.append(o)
+            return o
 
     def has(self, key):
         index = self.get_hash(key)
         if self.storage[index]:
             ll = self.storage[index]
-            data, ind = ll.find(HashTableItem(key=key, data=None), comparer=self.comparer)
+            data, ind = ll.find(HashTableItem(key=key, value=None), comparer=self.comparer)
             if data:
                 return True
             else:
@@ -71,9 +91,9 @@ class HashTable:
         index = self.get_hash(key)
         if self.storage[index]:
             ll = self.storage[index]
-            data, ind = ll.find(HashTableItem(key=key, data=None), comparer=self.comparer)
+            data, ind = ll.find(HashTableItem(key=key, value=None), comparer=self.comparer)
             if data:
-                return data.data
+                return data.value
             else:
                 return None
         else:
