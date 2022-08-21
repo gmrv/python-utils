@@ -45,6 +45,8 @@ class HashTable:
         return result
 
     def add(self, key, value):
+        # todo: Prohibit adding identical keys
+        # todo: (self, key, value, object=None) Object adding implementation
         ll = customcollections.LinkedList()
         index = self.get_hash(key)
         if self.storage[index]:
@@ -64,6 +66,18 @@ class HashTable:
                 return False
         else:
             return False
+
+    def get(self, key):
+        index = self.get_hash(key)
+        if self.storage[index]:
+            ll = self.storage[index]
+            data, ind = ll.find(HashTableItem(key=key, data=None), comparer=self.comparer)
+            if data:
+                return data.data
+            else:
+                return None
+        else:
+            return None
 
     def show_fullness(self):
         counter = 0
