@@ -2,6 +2,15 @@ import customcollections
 import hashlib
 
 
+class HashTableItem:
+    key = None
+    data = None
+
+    def __init__(self, key=key, data=data):
+        self.key = key
+        self.data = data
+
+
 class HashTable:
     storage = None
 
@@ -10,7 +19,7 @@ class HashTable:
 
     @staticmethod
     def comparer(self, o1, o2):
-        result = o1["key"] == o2["key"]
+        result = o1.key == o2.key
         return result
 
     def get_hash(self, key):
@@ -36,26 +45,39 @@ class HashTable:
         return result
 
     def add(self, key, value):
+        # todo: Prohibit adding identical keys
+        # todo: (self, key, value, object=None) Object adding implementation
         ll = customcollections.LinkedList()
         index = self.get_hash(key)
         if self.storage[index]:
             ll = self.storage[index]
-            # todo: dict {"key": key, "value": value} to object
-            ll.append({"key": key, "value": value})
+            ll.append(HashTableItem(key=key, data=value))
         else:
-            self.storage[index] = ll.append({"key": key, "value": value})
+            self.storage[index] = ll.append(HashTableItem(key=key, data=value))
 
     def has(self, key):
         index = self.get_hash(key)
         if self.storage[index]:
             ll = self.storage[index]
-            data, ind = ll.find({"key": key, "value": None}, comparer=self.comparer)
+            data, ind = ll.find(HashTableItem(key=key, data=None), comparer=self.comparer)
             if data:
                 return True
             else:
                 return False
         else:
             return False
+
+    def get(self, key):
+        index = self.get_hash(key)
+        if self.storage[index]:
+            ll = self.storage[index]
+            data, ind = ll.find(HashTableItem(key=key, data=None), comparer=self.comparer)
+            if data:
+                return data.data
+            else:
+                return None
+        else:
+            return None
 
     def show_fullness(self):
         counter = 0
