@@ -19,8 +19,8 @@ class TestHashTable(unittest.TestCase):
 
         # Test for adding duplicate key
         r1 = ht.add('Me value', "1data-data-data")
-        r2 = ht.add('Me value', "2data-data-data")
-        self.assertEqual(r2, None)
+        with self.assertRaises(HashTableExceptionDuplicateKey):
+            r2 = ht.add('Me value', "2data-data-data")
 
         ht.add('horse', "4data-data-data")
         ht.add(111, "5data-data-data")

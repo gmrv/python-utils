@@ -1,6 +1,6 @@
-__all__ = ['LinkedList', 'HashTable', 'HashTableItem', 'HashTableExceptionKeyValueItemRequired']
+__all__ = ['LinkedList', 'HashTable', 'HashTableItem', 'HashTableExceptionKeyValueItemRequired',
+           'HashTableExceptionDuplicateKey']
+
 from customcollections.linkedlist import LinkedList
-from customcollections.hashtable import HashTable, HashTableExceptionKeyValueItemRequired, HashTableItem
-
-
-
+from customcollections.hashtable import HashTable, HashTableItem, HashTableExceptionKeyValueItemRequired, \
+    HashTableExceptionDuplicateKey

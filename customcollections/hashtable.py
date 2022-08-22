@@ -12,9 +12,13 @@ class HashTableItem:
 
 
 class HashTableExceptionKeyValueItemRequired(Exception):
-
     message = 'Key, value or HashTableItem object required'
+    def __init__(self):
+        super().__init__(self.message)
 
+
+class HashTableExceptionDuplicateKey(Exception):
+    message = 'Attempt to insert a duplicate key'
     def __init__(self):
         super().__init__(self.message)
 
@@ -61,7 +65,7 @@ class HashTable:
             value = item.value
 
         if self.has(key):
-            return None
+            raise HashTableExceptionDuplicateKey()
         ll = LinkedList()
         index = self.get_hash(key)
         if self.storage[index]:
