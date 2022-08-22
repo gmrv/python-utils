@@ -41,6 +41,24 @@ class TestHashTable(unittest.TestCase):
         self.assertEqual(ht.get('Me value'), "3data-data-data")
         self.assertEqual(ht.get(1234567890), "6data-data-data")
 
+    def test_remove(self):
+        ht = HashTable(init_size=5)
+        ht.add(111, "1data-data-data")
+        ht.add(222, "2data-data-data")
+        ht.add(333, "3data-data-data")
+        ht.add(444, "4data-data-data")
+        ht.add(555, "5data-data-data")
+        ht.add(666, "6data-data-data")
+        ht.add(777, "7data-data-data")
+        ht.add(888, "8data-data-data")
+        ht.remove(555)
+        ht.remove(666)
+        ht.remove(111)
+        ht.add(555, "5data-data-data")
+        ht.add(666, "6data-data-data")
+        ht.add(111, "1data-111-data")
+        self.assertEqual(ht.get(111), "1data-111-data")
+
     def test_fullness(self):
         letters = string.ascii_lowercase
         ht = HashTable(init_size=100)
