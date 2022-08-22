@@ -98,6 +98,14 @@ class HashTable:
         else:
             return None
 
+    def remove(self, key):
+        index = self.get_hash(key)
+        if self.storage[index]:
+            ll: LinkedList = self.storage[index]
+            ll.remove(HashTableItem(key=key, value=None), comparer=self.comparer)
+            if ll.counter == 0:
+                self.storage[index] = None
+
     def show_fullness(self):
         counter = 0
         for i in range(0, len(self.storage) - 1):

@@ -81,11 +81,12 @@ class LinkedList:
             is_equal = self.comparer
 
         while 1:
-            if is_equal(current.data, value):
+            if is_equal(self, current.data, value):
                 result = current.data
                 # try to remove the root node
                 if not prev:
-                    raise Exception("Can't remove the root node")
+                    self.__init__()
+                    return result
 
                 # try to remove the last node
                 if not current.next:
