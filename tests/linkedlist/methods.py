@@ -4,6 +4,10 @@ from customcollections import LinkedList
 
 class TestLinkedList(unittest.TestCase):
 
+    @staticmethod
+    def comparer(o1, o2):
+        return o1["id"] == o2["id"] and o1["val"] == o2["val"]
+
     def test_append(self):
         result = LinkedList().append(0).append(1).append(2).to_array()
         self.assertEqual(len(result), 3)
@@ -18,14 +22,13 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_find(self):
-        comparer = lambda o1, o2: o1["id"] == o2["id"] and o1["val"] == o2["val"]
         source = LinkedList().append({"id": 1, "val": "str1"}).append({"id": 2, "val": "str2"}).append(
             {"id": 3, "val": "str3"})
-        obj, index = source.find({"id": 2, "val": "str2"}, comparer=comparer)
+        obj, index = source.find({"id": 2, "val": "str2"}, comparer=self.comparer)
         if obj:
             self.assertEqual(obj["id"], 2)
             self.assertEqual(index, 1)
-        obj, index = source.find({"id": 2, "val": "sss"}, comparer=comparer)
+        obj, index = source.find({"id": 2, "val": "sss"}, comparer=self.comparer)
         self.assertEqual(obj, None)
 
     def test_find_all(self):
