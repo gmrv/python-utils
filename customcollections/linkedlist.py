@@ -9,12 +9,16 @@ class Node:
 
 
 class LinkedList:
+    # todo: public -> private
     root = None
     last = None
     __current = None
     __index = None
     counter = None
-    comparer = lambda self, o1, o2: o1 == o2
+
+    @staticmethod
+    def comparer(o1, o2):
+        return o1 == o2
 
     def __init__(self):
         self.root = None
@@ -81,7 +85,7 @@ class LinkedList:
             is_equal = self.comparer
 
         while 1:
-            if is_equal(self, current.data, value):
+            if is_equal(current.data, value):
                 result = current.data
                 # try to remove the root node
                 if not prev:
@@ -118,7 +122,7 @@ class LinkedList:
             is_equal = self.comparer
 
         while 1:
-            if is_equal(self, current.data, value):
+            if is_equal(current.data, value):
                 return current.data, local_counter
             else:
                 if current.next:

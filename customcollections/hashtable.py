@@ -30,9 +30,8 @@ class HashTable:
         self.storage = [None] * init_size
 
     @staticmethod
-    def comparer(self, o1, o2):
-        result = o1.key == o2.key
-        return result
+    def comparer(o1, o2):
+        return o1.key == o2.key
 
     def get_hash(self, key):
         # todo: testing hashes
