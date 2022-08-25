@@ -106,7 +106,7 @@ class HashTable:
         if self.storage[index]:
             ll: LinkedList = self.storage[index]
             ll.remove(HashTableItem(key=key, value=None), comparer=self.comparer)
-            if ll.counter == 0:
+            if ll.len() == 0:
                 self.storage[index] = None
 
     def show_fullness(self):
