@@ -24,10 +24,10 @@ class HashTableExceptionDuplicateKey(Exception):
 
 
 class HashTable:
-    storage: [LinkedList] = None
+    __storage: [LinkedList] = None
 
     def __init__(self, init_size=10):
-        self.storage = [None] * init_size
+        self.__storage = [None] * init_size
 
     @staticmethod
     def comparer(o1, o2):
@@ -40,18 +40,18 @@ class HashTable:
     def get_custom_hash(self, key):
         result = 0
         value_str = str(key)
-        storage_size = len(self.storage)
+        storage_size = len(self.__storage)
         for ch in value_str:
             result = ((storage_size - 0) * result + ord(ch)) % storage_size
             result = (result * 2 + 0) % storage_size
         return result
 
     def get_hash_hash(self, key):
-        result = abs(hash(key)) % len(self.storage)
+        result = abs(hash(key)) % len(self.__storage)
         return result
 
     def get_hashlib_hash(self, key):
-        result = int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % len(self.storage)
+        result = int(hashlib.sha1(key.encode("utf-8")).hexdigest(), 16) % len(self.__storage)
         return result
 
     def add(self, key=None, value=None, item: HashTableItem = None):
@@ -67,20 +67,20 @@ class HashTable:
             raise HashTableExceptionDuplicateKey()
         ll = LinkedList()
         index = self.get_hash(key)
-        if self.storage[index]:
-            ll: LinkedList = self.storage[index]
+        if self.__storage[index]:
+            ll: LinkedList = self.__storage[index]
             o = HashTableItem(key=key, value=value)
             ll.append(o)
             return o
         else:
             o = HashTableItem(key=key, value=value)
-            self.storage[index] = ll.append(o)
+            self.__storage[index] = ll.append(o)
             return o
 
     def has(self, key):
         index = self.get_hash(key)
-        if self.storage[index]:
-            ll: LinkedList = self.storage[index]
+        if self.__storage[index]:
+            ll: LinkedList = self.__storage[index]
             data, ind = ll.find(HashTableItem(key=key, value=None), comparer=self.comparer)
             if data:
                 return True
@@ -91,8 +91,8 @@ class HashTable:
 
     def get(self, key):
         index = self.get_hash(key)
-        if self.storage[index]:
-            ll: LinkedList = self.storage[index]
+        if self.__storage[index]:
+            ll: LinkedList = self.__storage[index]
             data, ind = ll.find(HashTableItem(key=key, value=None), comparer=self.comparer)
             if data:
                 return data.value
@@ -103,15 +103,15 @@ class HashTable:
 
     def remove(self, key):
         index = self.get_hash(key)
-        if self.storage[index]:
-            ll: LinkedList = self.storage[index]
+        if self.__storage[index]:
+            ll: LinkedList = self.__storage[index]
             ll.remove(HashTableItem(key=key, value=None), comparer=self.comparer)
             if ll.len() == 0:
-                self.storage[index] = None
+                self.__storage[index] = None
 
     def show_fullness(self):
         counter = 0
-        for i in range(0, len(self.storage) - 1):
-            if self.storage[i]:
+        for i in range(0, len(self.__storage) - 1):
+            if self.__storage[i]:
                 counter += 1
-        return counter / len(self.storage)
+        return counter / len(self.__storage)
