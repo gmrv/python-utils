@@ -8,6 +8,22 @@ class TestLinkedList(unittest.TestCase):
     def comparer(o1, o2):
         return o1["id"] == o2["id"] and o1["val"] == o2["val"]
 
+    def test_print(self):
+        result = LinkedList().append(100).append(111).append(222)
+        iterator = iter(result)
+        a, i = next(iterator)
+        b, i = next(iterator)
+        c, i = next(iterator)
+        d, i = next(iterator)
+
+        result[0] = 999
+        result[1] = 888
+        result[2] = 777
+
+        # print(">>", result[2])
+        print(">>", 222 in result)
+        print(">>", len(result))
+
     def test_append(self):
         result = LinkedList().append(0).append(1).append(2).to_array()
         self.assertEqual(len(result), 3)
