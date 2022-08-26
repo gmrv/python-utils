@@ -26,6 +26,37 @@ class LinkedList:
         self.__index = 0
         self.__current = self.__root
 
+    def __len__(self):
+        return self.len()
+
+    def __iter__(self):
+        self.reset()
+        return self
+
+    def __next__(self):
+        # fixme: endless iteration
+        return self.next()
+
+    def __contains__(self, item):
+        result, i = self.find(item)
+        return not result == None
+
+    def __setitem__(self, index, value):
+        self.reset()
+        i = -1
+        while 1:
+            if i < index-1:
+                o, i = self.next()
+            else:
+                self.__current.data = value
+                return
+
+    def __getitem__(self, index):
+        self.reset()
+        i = 0
+        for o, i in iter(self):
+            print(o, i)
+
     def reset(self):
         self.__current = self.__root
         self.__index = 0
@@ -43,7 +74,7 @@ class LinkedList:
             self.__index += 1
         else:
             self.__current = None
-            return result, index
+            return None, None
         return result, index
 
     def append(self, value=None):
