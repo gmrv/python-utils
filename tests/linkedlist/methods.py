@@ -8,6 +8,13 @@ class TestLinkedList(unittest.TestCase):
     def comparer(o1, o2):
         return o1["id"] == o2["id"] and o1["val"] == o2["val"]
 
+    def test_to_str(self):
+        r0 = LinkedList().append(1).append(2).append(3)
+        r1 = LinkedList().append({'id': 1}).append({'id': 2}).append({'id': 3})
+        self.assertEqual(str(r0), "LinkedList:<class 'int'>:[1, 2, 3]")
+        self.assertEqual(str(r1), "LinkedList:<class 'dict'>:[{'id': 1}, {'id': 2}, {'id': 3}]")
+
+
     def test_iterations(self):
         result = LinkedList().append(100).append(111).append(222)
         template = [100, 111, 222]
