@@ -8,21 +8,29 @@ class TestLinkedList(unittest.TestCase):
     def comparer(o1, o2):
         return o1["id"] == o2["id"] and o1["val"] == o2["val"]
 
-    def test_print(self):
+    def test_iterations(self):
         result = LinkedList().append(100).append(111).append(222)
+        template = [100, 111, 222]
+        iterator = iter(result)
+
+        for data, index in iterator:
+            self.assertEqual(data, template[index])
+
         iterator = iter(result)
         a, i = next(iterator)
         b, i = next(iterator)
         c, i = next(iterator)
-        d, i = next(iterator)
+        with self.assertRaises(StopIteration):
+            d, i = next(iterator)
 
+        # iterations under the hood __setitem__ __getitem__
         result[0] = 999
         result[1] = 888
         result[2] = 777
 
-        # print(">>", result[2])
-        print(">>", 222 in result)
-        print(">>", len(result))
+        self.assertEqual(result[0], 999)
+        self.assertEqual(result[1], 888)
+        self.assertEqual(result[2], 777)
 
     def test_append(self):
         result = LinkedList().append(0).append(1).append(2).to_array()
