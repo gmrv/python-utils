@@ -61,6 +61,10 @@ class LinkedList:
             if i == index:
                 return o
 
+    def __str__(self):
+        data_type = type(self.__root.data)
+        return f'LinkedList:{data_type}:{str(self.to_array())}'
+
     def reset(self):
         self.__current = self.__root
         self.__index = 0
