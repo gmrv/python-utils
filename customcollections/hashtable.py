@@ -28,6 +28,13 @@ class HashTable:
 
     def __init__(self, init_size=10):
         self.__storage = [None] * init_size
+        pass
+
+    def __setitem__(self, key, value):
+        self.add(key, value)
+
+    def __getitem__(self, key):
+        return self.get(key)
 
     @staticmethod
     def comparer(o1, o2):
