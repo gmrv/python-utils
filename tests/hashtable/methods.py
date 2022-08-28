@@ -6,6 +6,13 @@ from customcollections import *
 
 class TestHashTable(unittest.TestCase):
 
+    def test_attributes(self):
+        ht1 = HashTable(init_size=10)
+        ht1["mykey"] = 1
+        ht1["myotherkey"] = 2
+        self.assertEqual(ht1["mykey"], 1)
+        self.assertEqual(ht1["myotherkey"], 2)
+
     def test_add_and_has(self):
         ht = HashTable(init_size=10)
 
