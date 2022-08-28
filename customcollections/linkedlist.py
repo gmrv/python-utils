@@ -15,6 +15,10 @@ class LinkedList:
     __index = None
     __counter = None
 
+    @property
+    def root(self):
+        return self.__root
+
     @staticmethod
     def comparer(o1, o2):
         return o1 == o2
